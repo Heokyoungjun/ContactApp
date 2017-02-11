@@ -7,9 +7,7 @@ package com.compapp.app.contactapp.domain;
 public class MemberBean {
     private String id,password,name,phone,addr,profile;
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
     public void setId(String id) {
         this.id = id;
