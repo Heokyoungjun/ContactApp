@@ -16,16 +16,19 @@ public class MemberServiceImpl implements  MemberService{
 
     @Override
     public MemberBean findOne(MemberBean bean) {
+
         return null;
     }
 
     @Override
     public ArrayList<MemberBean> findSome(String key) {
+
         return null;
     }
 
     @Override
     public ArrayList<MemberBean> list() {
+
         return null;
     }
 
