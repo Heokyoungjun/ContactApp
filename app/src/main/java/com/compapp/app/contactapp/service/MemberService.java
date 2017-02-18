@@ -13,6 +13,8 @@ public interface MemberService {
     public void add(MemberBean bean);
     //READ ONE
     public MemberBean findOne(MemberBean bean);
+    //LOGIN
+    public boolean login(MemberBean bean);
     //READ SOME
     public ArrayList<MemberBean> findSome(String key);
     //READ ALL

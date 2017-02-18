@@ -40,20 +40,15 @@ public class SigninActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btLogin:
-                String id = etID.getText().toString();
-                String pw = etPW.getText().toString();
-                bean.setId(id);
-                bean.setPw(pw);
+                bean.setId(etID.getText().toString());
+                bean.setPw(etPW.getText().toString());
 
-                MemberBean resultBean = service.findOne(bean);
-
-                if (!resultBean.getId().equals("fail") && pw.equals(resultBean.getPw())) {
-                    Toast.makeText(SigninActivity.this,"SECCESS",Toast.LENGTH_LONG);
-                    startActivity(new Intent(SigninActivity.this, DetailActivity.class));
+                if(service.login(bean)) {
+                    startActivity(new Intent(SigninActivity.this, ListActivity.class));
                 } else {
-                    Toast.makeText(SigninActivity.this,"Fail",Toast.LENGTH_LONG);
-                    startActivity(new Intent(SigninActivity.this, SigninActivity.class));
+                    Toast.makeText(SigninActivity.this,"Fail LOGIN",Toast.LENGTH_LONG).show();
                 }
+
                 break;
             case R.id.btCancel:
                 break;

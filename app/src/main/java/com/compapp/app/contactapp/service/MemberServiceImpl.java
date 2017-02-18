@@ -20,12 +20,18 @@ public class MemberServiceImpl implements  MemberService{
 
     @Override
     public void add(MemberBean bean) {
-
+        dao.add(bean);
     }
 
     @Override
     public MemberBean findOne(MemberBean bean) {
         return dao.findOne(bean);
+    }
+
+    @Override
+    public boolean login(MemberBean bean) {
+        MemberBean resultBean = this.findOne(bean);
+        return !resultBean.getId().equals("fail") && bean.getPw().equals(resultBean.getPw());
     }
 
     @Override
@@ -37,7 +43,7 @@ public class MemberServiceImpl implements  MemberService{
     @Override
     public ArrayList<MemberBean> list() {
 
-        return null;
+        return dao.selectAll();
     }
 
     @Override
@@ -47,6 +53,6 @@ public class MemberServiceImpl implements  MemberService{
 
     @Override
     public void del(MemberBean bean) {
-
+        dao.delete(bean);
     }
 }

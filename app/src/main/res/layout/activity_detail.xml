@@ -10,6 +10,7 @@
         android:textSize="30dp"
         android:text="DETAIL INFOMATION"/>
     <ImageView
+        android:id="@+id/ivProfile"
         android:layout_width="match_parent"
         android:layout_height="100dp" />
     <LinearLayout
@@ -40,6 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

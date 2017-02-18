@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class MemberDAO extends SQLiteOpenHelper{
 
     public MemberDAO(Context context) {
-        super(context, "hanbit.db", null, 1);
+        super(context, "hanbit2.db", null, 1);
         this.getWritableDatabase();
     }
 
@@ -64,9 +64,13 @@ public class MemberDAO extends SQLiteOpenHelper{
     public void add(MemberBean bean){
         String sql = String.format("INSERT INTO Member " +
                                    "(id, pw, name, email, phone, addr, profile) VALUES " +
-                                   "('%s','%s','%s','%s','%s','%s');",
+                                   "('%s','%s','%s','%s','%s','%s','%s');",
                                     bean.getId(), bean.getPw(), bean.getName(), bean.getEmail(),
-                                    bean. getPhone(), bean.getAddr(), bean.getProfile());
+                                    bean.getPhone(), bean.getAddr(), bean.getProfile());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(sql);
+        db.close();
     }
 
     //READ ONE
@@ -102,6 +106,29 @@ public class MemberDAO extends SQLiteOpenHelper{
         String sql = String.format("SELECT id, pw, name, email, phone, addr, profile " +
                                    "FROM Member " +
                                    "WHERE name = '%s';",key);
+        Log.d("Login SQL = " ,sql);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor != null) {
+            Log.d("Member" ,"Exist");
+            cursor.moveToFirst();
+        }
+
+        do {
+            MemberBean resultBean = new MemberBean();
+            resultBean.setId(cursor.getString(0));
+            resultBean.setPw(cursor.getString(1));
+            resultBean.setName(cursor.getString(2));
+            resultBean.setEmail(cursor.getString(3));
+            resultBean.setPhone(cursor.getString(4));
+            resultBean.setAddr(cursor.getString(5));
+            resultBean.setProfile(cursor.getString(6));
+            resultList.add(resultBean);
+        } while (cursor.moveToNext());
+
+        Log.d("Member Count:" ,String.valueOf(resultList.size()));
+
         return resultList;
     }
 
@@ -110,6 +137,28 @@ public class MemberDAO extends SQLiteOpenHelper{
         ArrayList<MemberBean> resultList = new ArrayList<MemberBean>();
         String sql ="SELECT id, pw, name, email, phone, addr, profile " +
                     "FROM Member;";
+        Log.d("Login SQL = " ,sql);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+
+        if (cursor != null) {
+            Log.d("Member" ,"Exist");
+            cursor.moveToFirst();
+        }
+
+        do {
+            MemberBean resultBean = new MemberBean();
+            resultBean.setId(cursor.getString(0));
+            resultBean.setPw(cursor.getString(1));
+            resultBean.setName(cursor.getString(2));
+            resultBean.setEmail(cursor.getString(3));
+            resultBean.setPhone(cursor.getString(4));
+            resultBean.setAddr(cursor.getString(5));
+            resultBean.setProfile(cursor.getString(6));
+            resultList.add(resultBean);
+        } while (cursor.moveToNext());
+
+        Log.d("Member Count:" ,String.valueOf(resultList.size()));
 
         return resultList;
     }
@@ -118,17 +167,27 @@ public class MemberDAO extends SQLiteOpenHelper{
     public void update(MemberBean bean){
         String sql = String.format("UPDATE Member SET " +
                                    "pw = '%s', phone = '%s', " +
-                                   "addr = '%s', profile = '%s' " +
+                                   "addr = '%s', profile = '%s', " +
                                    "email = '%s' " +
                                    "WHERE id = '%s';",
                                    bean.getPw(), bean.getPhone(),
                                    bean.getAddr(), bean.getProfile(),
                                    bean.getEmail(),
                                    bean.getId());
+        Log.d("Login SQL = " ,sql);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+        db.execSQL(sql);
+        db.close();
     }
 
     //DELETE
     public void delete(MemberBean bean){
         String sql = String.format("DELETE FROM Member WHERE id = '%s';", bean.getId());
+        Log.d("Login SQL = " ,sql);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(sql, null);
+        db.execSQL(sql);
+        db.close();
     }
 }

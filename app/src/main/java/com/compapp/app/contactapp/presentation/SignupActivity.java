@@ -1,5 +1,6 @@
 package com.compapp.app.contactapp.presentation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -46,8 +47,16 @@ public class SignupActivity extends AppCompatActivity implements View.OnClickLis
         switch (v.getId()){
             case R.id.btSubmit:
                 bean.setId(etID.getText().toString());
+                bean.setPw(etPW.getText().toString());
+                bean.setName(etName.getText().toString());
+                bean.setEmail(etEmail.getText().toString());
+                bean.setPhone(etPhone.getText().toString());
+                bean.setAddr(etAddr.getText().toString());
+                bean.setProfile("defaultimage");
 
                 service.add(bean);
+
+                startActivity(new Intent(SignupActivity.this ,SigninActivity.class));
                 break;
             case R.id.btCancel:
                 break;
